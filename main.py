@@ -3,10 +3,17 @@ try:
     import openpyxl
 except:
     print ("use 'pip install openpyxl'")
+    quit()
 try:
     import datetime
 except:
     print("use 'pip install datetime'")
+    quit()
+try:
+    import fpdf
+except:
+    print("use 'pip install fpdf'")
+    quit()
 
 
 def numb_to_month(n):
@@ -434,11 +441,6 @@ with open('Message.txt', 'w', encoding='utf-8') as f:
         for j in range(0, len(i) - 1):
             f.write(str(i[j]) + " ")
         f.write(str(i[j + 1]) + "\n")
-try:
-    import fpdf
-except:
-    print("use 'pip install fpdf'")
-
 def get_aud():
     korp = ''
     with open("outp.txt", encoding='utf-8') as f:
