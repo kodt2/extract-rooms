@@ -90,12 +90,14 @@ for cellObj in sheet2['A2':'A100']:
             new_coord = int(cell.coordinate[1:])
             week.append([val[0], val[1], val[2], val[4], old_coord, new_coord])
             old_coord = int(cell.coordinate[1:])
+#print(week)
 for i in range(len(week) - 1):
     week[i][4] = week[i + 1][4]
     week[i][5] = week[i + 1][5] - 1
+#print(week)
 week[len(week) - 1][4] = week[len(week) - 1][5]
-week[len(week) - 1][5] = week[len(week) - 1][5] + 7
-# print(week)
+week[len(week) - 1][5] = week[len(week) - 1][5]+7
+#print(week)
 val = ''
 old_coord = int("A1"[1:])
 for cellObj in sheet6['A2':'A100']:
@@ -109,29 +111,38 @@ for i in range(len(week6) - 1):
     week6[i][4] = week6[i + 1][4]
     week6[i][5] = week6[i + 1][5] - 1
 week6[len(week6) - 1][4] = week6[len(week6) - 1][5]
-week6[len(week6) - 1][5] = week6[len(week6) - 1][5] + 7
+week6[len(week6) - 1][5] = week6[len(week6) - 1][5]+7
 for i in week:
     room_data = []
     for cellObj in sheet2['W' + str(i[4]):'AE' + str(i[5])]:
         help = []
         for cell in cellObj:
-            help.append(cell.value)
+            if (cell.value == None):
+                help.append('')
+            else:
+                help.append(cell.value)
         room_data.append(help)
     i.append(room_data)
     while len(i[6]) <= 7:
         i[6].append(['', '', '', '', '', '', '', '', ''])
+#print(week6)
 for i in week6:
     room_data = []
     for cellObj in sheet6['C' + str(i[4]):'AT' + str(i[5])]:
         help = []
         for cell in cellObj:
-            help.append(cell.value)
+            if (cell.value == None):
+                help.append('')
+            else:
+                help.append(cell.value)
         room_data.append(help)
     i.append(room_data)
     while len(i[6]) <= 7:
         i[6].append(
             ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '',
              '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''])
+#print("###########################################")
+#print(week6)
 with open('needed rooms.txt', encoding='utf-8') as f:
     arr = f.read()
     arr = arr.split('\n')
@@ -237,7 +248,76 @@ for i in req:
         if (right_week == 0):
             vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no such day in2"])
 for i in req:
-    if i[6] != 'big':
+    if i[6] == 'big2':
+        day = i[2]
+        month = i[3]
+        year = i[4]
+        pairs = i[5]
+        also_find = 0
+        right_week = 0
+        for j in week6:
+            if (day == j[0] and month == j[1] and year == int(j[2])):
+                cvobodn = 1
+                right_week = 1
+                for p in i[5]:
+                    if (j[6][p - 1][0] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][0] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 105, 2])
+                    break
+                cvobodn = 1
+                for p in i[5]:
+                    if (j[6][p - 1][36] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][36] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 314, 2])
+                    break
+                cvobodn = 1
+                for p in i[5]:
+                    if (j[6][p - 1][43] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][43] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 328, 2])
+                    break
+                cvobodn = 1
+                for p in i[5]:
+                    if (j[6][p - 1][32] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][32] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 307, 2])
+                    break
+                cvobodn = 1
+                for p in i[5]:
+                    if (j[6][p - 1][42] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][42] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 324, 2])
+                    break
+                cvobodn = 1
+                for p in i[5]:
+                    if (j[6][p - 1][33] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][33] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 309, 2])
+                    break
+                if cvobodn == 0:
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no free room"])
+        if (right_week == 0):
+            vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no such day in2"])
+for i in req:
+    if i[6] == 'any':
         day = i[2]
         month = i[3]
         year = i[4]
@@ -425,6 +505,103 @@ for i in req:
                         vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no free room"])
         if (right_week == 0):
             vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no such day in6"])
+for i in req:
+    if i[6] == 'any2':
+        day = i[2]
+        month = i[3]
+        year = i[4]
+        pairs = i[5]
+        also_find = 0
+        right_week = 0
+        if also_find == 0:
+            for j in week6:
+                if (day == j[0] and month == j[1] and year == int(j[2])):
+                    right_week = 1
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][0] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][0] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 105, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][32] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][32] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 307, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][33] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][33] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 309, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][36] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][36] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 314, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][37] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][37] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 317, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][39] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][39] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 318, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][41] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][41] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 322, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][42] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][42] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 324, 2])
+                        break
+                    cvobodn = 1
+                    for p in i[5]:
+                        if (j[6][p - 1][43] != ''):
+                            cvobodn = 0
+                    if cvobodn == 1:
+                        for p in i[5]:
+                            j[6][p - 1][43] = 'CCC'
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 328, 2])
+                        break
+                    if cvobodn == 0:
+                        vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no free room"])
+        if (right_week == 0):
+            vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no such day in6"])
 vihod.sort(key = lambda x: x[1])
 for i in vihod:
     print(i)
@@ -512,8 +689,10 @@ def cycle_out_rooms(pdf, arr, start, end):
     return pdf
 
 arr = list()
-korp, arr = get_aud()
-
+try :
+    korp, arr = get_aud()
+except Exception:
+    print("no such room")
 pdf = fpdf.FPDF(format='letter')  # pdf format
 pdf.add_page()  # create new page
 pdf.add_font('Times', '', 'times.ttf', uni=True)
