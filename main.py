@@ -248,6 +248,30 @@ for i in req:
         if (right_week == 0):
             vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no such day in2"])
 for i in req:
+    if i[6] == '314':
+        day = i[2]
+        month = i[3]
+        year = i[4]
+        pairs = i[5]
+        also_find = 0
+        right_week = 0
+        for j in week6:
+            if (day == j[0] and month == j[1] and year == int(j[2])):
+                right_week = 1
+                cvobodn = 1
+                for p in i[5]:
+                    if (j[6][p - 1][36] != ''):
+                        cvobodn = 0
+                if cvobodn == 1:
+                    for p in i[5]:
+                        j[6][p - 1][36] = 'CCC'
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8], 314, 2])
+                    break
+                if cvobodn == 0:
+                    vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no free room"])
+        if (right_week == 0):
+            vihod.append([i[0] + " " + i[1], int(day), month, year, i[7], i[8]," ", "no such day in2"])
+for i in req:
     if i[6] == 'big2':
         day = i[2]
         month = i[3]
@@ -613,6 +637,7 @@ with open('outp.txt', 'w', encoding='utf-8') as f:
     for j in range(1, len(vihod[len(vihod) - 1]) - 1):
         f.write(str(vihod[len(vihod) - 1][j]) + " ")
     f.write(str(vihod[len(vihod) - 1][j + 1]))
+vihod.sort(key=lambda x: x[0]);
 with open('Message.txt', 'w', encoding='utf-8') as f:
     for i in vihod:
         for j in range(0, len(i) - 1):
